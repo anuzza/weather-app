@@ -5,9 +5,9 @@ const url =
 request(
   {
     url: url,
+    json: true,
   },
   (error, response) => {
-    const data = JSON.parse(response.body);
-    console.log(data.current);
+    console.log(response.body.current);
   }
 );
