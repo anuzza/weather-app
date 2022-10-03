@@ -3,9 +3,13 @@ const express = require("express");
 
 const app = express();
 
+//Define paths for Express config
 const publicDirectory = path.join(__dirname, "../public");
+const viewsPath = path.join(__dirname, "./templates");
 
+//Setup hadlerbars engine and views location
 app.set("view engine", "hbs");
+app.set("views", viewsPath);
 app.use(express.static(publicDirectory));
 
 //app.com
