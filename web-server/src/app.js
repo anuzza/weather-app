@@ -50,23 +50,26 @@ app.get("/weather", (req, res) => {
       error: "you must provide an address",
     });
   }
-  geoCode(req.query.address, (error, { latitude, longitude, location }) => {
-    if (error) {
-      return res.send({ error });
-    }
-    forecast(latitude, longitude, (error, forecastData) => {
+  geoCode(
+    req.query.address,
+    (error, { latitude, longitude, location } = {}) => {
       if (error) {
-        return res.send({
-          error: "Unable to fetch weather data",
-        });
+        return res.send({ error });
       }
-      res.send({
-        forecast: forecastData,
-        location: location,
-        address: req.query.address,
+      forecast(latitude, longitude, (error, forecastData) => {
+        if (error) {
+          return res.send({
+            error: "Unable to fetch weather data",
+          });
+        }
+        res.send({
+          forecast: forecastData,
+          location: location,
+          address: req.query.address,
+        });
       });
-    });
-  });
+    }
+  );
 });
 
 app.get("/products", (req, res) => {
